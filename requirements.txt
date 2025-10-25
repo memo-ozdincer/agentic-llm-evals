@@ -1,5 +1,7 @@
-agentdojo
+agentdojo-inspect @ git+https://github.com/usnistgov/agentdojo-inspect.git@main
 openai
 anthropic
 google-generativeai
 pandas
+tenacity
+tqdm
