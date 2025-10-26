@@ -26,10 +26,9 @@ source ~/.api_keys
 # --- RUN THE BENCHMARK ---
 echo "Starting AgentDojo built-in benchmark script..."
 
-# V2.5 Change: Removed --ml-module and added the correct -ml argument
-# -ml tells the script to load our custom benchmark module.
+# V3.1 Change: Replaced 'gpt-5-mini' with a valid model identifier from the allowed list.
 "${VENV_PYTHON}" -m agentdojo.scripts.benchmark \
-    --model "gpt-5-mini" \
+    --model "GPT_4O_2024_05_13" \
     --attack "direct" \
     --benchmark-version "medical_clerk_v1" \
     -ml "medical_clerk_benchmark.benchmark" \

@@ -2,11 +2,8 @@
 import os
 from dataclasses import dataclass
 
-# V2.1 Trillium Change: Determine the writable data home directory
-# The $SCRATCH environment variable is usually set on Alliance clusters.
 SCRATCH_DIR = os.getenv("SCRATCH")
 if not SCRATCH_DIR:
-    # Fallback to a local directory if not on the HPC for local testing
     DATA_HOME = os.path.join(os.getcwd(), "results")
     print("WARNING: $SCRATCH environment variable not found. Using local ./results/ directory.")
 else:
@@ -14,11 +11,11 @@ else:
 
 @dataclass
 class Config:
-    # Models
-    AGENT_MODEL: str = os.getenv("AGENT_MODEL", "gpt-5-mini")
-    JUDGE_MODEL: str = os.getenv("JUDGE_MODEL", "gpt-5")
+    # V3.1 Change: Updated model names to valid AgentDojo identifiers
+    AGENT_MODEL: str = os.getenv("AGENT_MODEL", "GPT_4O_2024_05_13")
+    JUDGE_MODEL: str = os.getenv("JUDGE_MODEL", "GPT_4O_2024_05_13") # Using a powerful model for judging
     
-    # V2.1 Trillium Change: Paths now point to the writable scratch directory
+    # Paths
     ATTACKS_DB_PATH: str = os.path.join(DATA_HOME, "attacks.db")
     RESULTS_DB_PATH: str = os.path.join(DATA_HOME, "results.db")
     LOG_FILE_PATH: str = os.path.join(DATA_HOME, "benchmark.log")
