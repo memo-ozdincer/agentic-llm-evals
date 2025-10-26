@@ -15,7 +15,6 @@ echo "Job started on $(hostname) at $(date)"
 
 module purge
 module load python/3.11
-module load git
 
 CODE_DIR="/project/def-zhijing/memoozd/agentic-llm-evals"
 DATA_DIR="/scratch/memoozd/agentic-llm-evals-data"
