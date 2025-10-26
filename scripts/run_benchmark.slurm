@@ -15,25 +15,25 @@ echo "Job started on $(hostname) at $(date)"
 
 module purge
 module load python/3.11
-module load git
 
 CODE_DIR="/project/def-zhijing/memoozd/agentic-llm-evals"
 DATA_DIR="/scratch/memoozd/agentic-llm-evals-data"
 VENV_PYTHON="${DATA_DIR}/.venv/bin/python"
 
-echo "Using Python from venv: ${VENV_PYTHON}"
+source "${DATA_DIR}/.venv/bin/activate" # Activate the venv
 source ~/.api_keys
 
-# --- RUN THE BENCHMARK (The AgentDojo Way) ---
+# --- RUN THE BENCHMARK ---
 echo "Starting AgentDojo built-in benchmark script..."
 
-# This is the new command. It's much simpler and more powerful.
+# V2.5 Change: Removed --ml-module and added the correct -ml argument
+# -ml tells the script to load our custom benchmark module.
 "${VENV_PYTHON}" -m agentdojo.scripts.benchmark \
     --model "gpt-5-mini" \
     --attack "direct" \
     --benchmark-version "medical_clerk_v1" \
-    --ml-module "medical_clerk_benchmark.benchmark" \
+    -ml "medical_clerk_benchmark.benchmark" \
     --logdir "${DATA_DIR}/results/logs" \
-    --force-rerun # Optional: forces re-running tasks even if logs exist
+    --force-rerun
 
 echo "Job finished at $(date)"
